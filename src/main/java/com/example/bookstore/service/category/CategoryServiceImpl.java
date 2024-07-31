@@ -31,7 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> findAll(Pageable pageable) {
-        return categoryMapper.toDtoList(categoryRepository.findAll(pageable).toList());
+        return categoryMapper.toDtoList(
+                categoryRepository.findAll(pageable).toList());
     }
 
     @Override
@@ -43,6 +44,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Long categoryId) {
+        categoryRepository.findById(categoryId).orElseThrow(
+                () -> new EntityNotFoundException("Can't delete category by id: " + categoryId));
         categoryRepository.deleteById(categoryId);
     }
 

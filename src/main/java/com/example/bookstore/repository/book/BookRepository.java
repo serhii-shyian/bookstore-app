@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface BookRepository extends JpaRepository<Book, Long>,
         JpaSpecificationExecutor<Book> {
-    List<Book> findAllBy(Pageable pageable);
-
     @Query("from Book b left join fetch b.categories c where c.id = :categoryId")
     List<Book> findAllByCategoryId(Long categoryId, Pageable pageable);
 }

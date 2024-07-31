@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> findAll(Pageable pageable) {
         return bookMapper.toDtoList(
-                bookRepository.findAllBy(pageable));
+                bookRepository.findAll(pageable).toList());
     }
 
     @Override
@@ -66,13 +66,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteById(Long bookId) {
+        bookRepository.findById(bookId).orElseThrow(
+                () -> new EntityNotFoundException("Can't delete book by id: " + bookId));
         bookRepository.deleteById(bookId);
     }
 
     @Override
     public List<BookDto> searchByParameters(BookSearchParametersDto paramsDto, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(paramsDto);
-        return bookMapper.toDtoList(bookRepository.findAll(bookSpecification));
+        return bookMapper.toDtoList(bookRepository.findAll(bookSpecification, pageable).toList());
     }
 
     private Book findBookById(Long bookId) {

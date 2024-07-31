@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -45,7 +45,7 @@ public class CategoryController {
     public List<CategoryDto> getAll(@ParameterObject
                                     @PageableDefault(
                                             size = 5,
-                                            sort = "name",
+                                            sort = "id",
                                             direction = Sort.Direction.ASC)
                                     Pageable pageable) {
         return categoryService.findAll(pageable);
@@ -100,7 +100,7 @@ public class CategoryController {
     @Operation(summary = "Delete a category by id",
             description = "Deleting a category by id if available")
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteCategory(@PathVariable @Positive Long categoryId) {
+    public void deleteCategoryById(@PathVariable @Positive Long categoryId) {
         categoryService.deleteById(categoryId);
     }
 }
